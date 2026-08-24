@@ -1,0 +1,222 @@
+
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mundo Anime</title>
+    <style>
+        /* === CSS: ESTILIZAÇÃO DO SITE === */
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --primary-color: #ff3366;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2a0845 0%, #6441A5 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Barra de Busca */
+        .search-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        #searchInput {
+            padding: 0.8rem 1.5rem;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 25px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            background-color: #333;
+            color: white;
+            transition: 0.3s;
+        }
+
+        #searchInput:focus {
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+
+        /* Grid de Animes */
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .anime-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.2);
+        }
+
+        .anime-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            background-color: #333; /* Fallback caso a imagem não carregue */
+        }
+
+        .anime-info {
+            padding: 1rem;
+        }
+
+        .anime-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .anime-genre {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #0a0a0a;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mundo Anime</h1>
+        <p>Seu catálogo pessoal dos melhores animes</p>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Busque por um anime...">
+        </div>
+
+        <div class="anime-grid" id="animeGrid">
+            <!-- Os cards dos animes aparecerão aqui via JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Mundo Anime. Feito para o GitHub Pages.</p>
+    </footer>
+
+    <script>
+        // === JAVASCRIPT: LÓGICA E DADOS DO SITE ===
+
+        // 1. Array com os dados dos animes (Você pode adicionar mais aqui!)
+        const animes = [
+            {
+                titulo: "Spy x Family",
+                genero: "Ação, Comédia",
+                imagem: "https://m.media-amazon.com/images/M/MV5BNDUyY2FhYTEtZDhjOC00ZDlkLWJiYjAtNDc0MDNlZWMzOTc5XkEyXkFqcGdeQXVyMTA1NjQyNjkw._V1_.jpg"
+            },
+            {
+                titulo: "Boku no Hero Academia",
+                genero: "Ação, Super-heróis",
+                imagem: "https://m.media-amazon.com/images/M/MV5BOGZmYjdjN2UtNjAwZi00YmEyLWFhNTEtNjM1OTc5ODg0MGEyXkEyXkFqcGdeQXVyMTA1NjQyNjkw._V1_.jpg"
+            },
+            {
+                titulo: "Haikyuu!!",
+                genero: "Esportes, Escolar",
+                imagem: "https://m.media-amazon.com/images/M/MV5BNWRhN2JiOWEtYzdlYi00NmVmLWEyYmQtY2UwZWVmOTc5MWVlXkEyXkFqcGdeQXVyMzgxODM4NjM@._V1_.jpg"
+            },
+            {
+                titulo: "Demon Slayer",
+                genero: "Ação, Fantasia",
+                imagem: "https://m.media-amazon.com/images/M/MV5BZjZjNzI5MDctY2Y4YS00NmM4LTljMTItZWYxNjQxN2Y4MDlkXkEyXkFqcGdeQXVyNjc3OTE4NDM@._V1_.jpg"
+            }
+        ];
+
+        // 2. Elementos da tela
+        const gridElement = document.getElementById('animeGrid');
+        const searchInput = document.getElementById('searchInput');
+
+        // 3. Função para desenhar os cards na tela
+        function renderAnimes(listaDeAnimes) {
+            gridElement.innerHTML = ''; // Limpa o grid antes de desenhar
+            
+            if(listaDeAnimes.length === 0) {
+                gridElement.innerHTML = '<p>Nenhum anime encontrado :(</p>';
+                return;
+            }
+
+            listaDeAnimes.forEach(anime => {
+                const cardHTML = `
+                    <div class="anime-card">
+                        <img src="${anime.imagem}" alt="Capa de ${anime.titulo}" class="anime-image">
+                        <div class="anime-info">
+                            <h2 class="anime-title">${anime.titulo}</h2>
+                            <p class="anime-genre">${anime.genero}</p>
+                        </div>
+                    </div>
+                `;
+                gridElement.innerHTML += cardHTML;
+            });
+        }
+
+        // 4. Desenha todos os animes quando a página carrega
+        renderAnimes(animes);
+
+        // 5. Função de Busca em tempo real
+        searchInput.addEventListener('input', (evento) => {
+            const textoBusca = evento.target.value.toLowerCase();
+            
+            const animesFiltrados = animes.filter(anime => 
+                anime.titulo.toLowerCase().includes(textoBusca) || 
+                anime.genero.toLowerCase().includes(textoBusca)
+            );
+            
+            renderAnimes(animesFiltrados);
+        });
+    </script>
+
+</body>
+</html>
+
+```
+
