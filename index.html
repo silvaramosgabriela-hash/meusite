@@ -1,17 +1,12 @@
 
 
-</html>
-
-```
-
-
 ```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz de Animes</title>
+    <title>Mundo Anime - Quiz</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -20,33 +15,57 @@
             --text: #ffffff;
         }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text);
-            font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text); padding: 2rem; text-align: center; }
+
+        header { margin-bottom: 2rem; }
+        header h1 { color: var(--primary); font-size: 2.5rem; }
+
+        .hidden { display: none !important; }
+
+        /* Catálogo de Animes */
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
+        .anime-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .anime-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .anime-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .anime-card h3 { margin-top: 0.8rem; }
+
+        /* Quiz */
         .quiz-container {
             background-color: var(--card-bg);
+            max-width: 500px;
+            margin: 0 auto;
             padding: 2rem;
             border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
             border: 2px solid var(--primary);
         }
 
-        .options-grid {
-            display: grid;
-            gap: 10px;
-            margin-top: 1.5rem;
-        }
+        .options-grid { display: grid; gap: 10px; margin: 1.5rem 0; }
 
         button {
             background-color: #2a2a2a;
@@ -59,93 +78,132 @@
             transition: 0.2s;
         }
 
-        button:hover {
-            background-color: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .score-text {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .hidden {
-            display: none;
-        }
+        button:hover { background-color: var(--primary); border-color: var(--primary); }
+        .btn-back { background-color: #444; margin-bottom: 1rem; }
     </style>
 </head>
 <body>
 
-    <div class="quiz-container">
-        <!-- Tela da Pergunta -->
-        <div id="quiz-screen">
-            <h2 id="question-text">Carregando pergunta...</h2>
-            <div id="options-container" class="options-grid"></div>
-        </div>
+    <header>
+        <h1>Mundo Anime Quiz</h1>
+        <p>Clique em um anime para iniciar o jogo de perguntas!</p>
+    </header>
 
-        <!-- Tela do Resultado final -->
-        <div id="result-screen" class="hidden">
-            <h2>Fim do Quiz!</h2>
-            <p class="score-text" id="final-score"></p>
-            <button onclick="reiniciarQuiz()" style="margin-top: 15px;">Jogar Novamente</button>
-        </div>
-    </div>
+    <!-- TELA 1: CATÁLOGO DE ANIMES -->
+    <main id="catalog-screen">
+        <div class="anime-grid" id="animeGrid"></div>
+    </main>
+
+    <!-- TELA 2: QUIZ DO ANIME SELECIONADO -->
+    <main id="quiz-screen" class="quiz-container hidden">
+        <button class="btn-back" onclick="voltarAoCatalogo()">← Voltar aos Animes</button>
+        <h2 id="anime-title-quiz" style="color: var(--primary);"></h2>
+        <h3 id="question-text" style="margin-top: 1rem;"></h3>
+        <div id="options-container" class="options-grid"></div>
+    </main>
+
+    <!-- TELA 3: RESULTADO FINAL -->
+    <main id="result-screen" class="quiz-container hidden">
+        <h2>Fim do Quiz!</h2>
+        <p id="final-score" style="font-size: 1.3rem; margin: 1.5rem 0; color: var(--primary);"></p>
+        <button onclick="voltarAoCatalogo()">Escolher Outro Anime</button>
+    </main>
 
     <script>
-        // Array com as perguntas, opções e o índice da resposta correta
-        const perguntas = [
+        // Dados dos animes e perguntas específicas de cada um
+        const dadosAnimes = [
             {
-                pergunta: "Qual é o objetivo principal de Naruto Uzumaki?",
-                opcoes: ["Se tornar Hokage", "Encontrar o One Piece", "Derrotar os Titãs", "Ser o Rei dos Magos"],
-                correta: 0
+                id: "naruto",
+                titulo: "Naruto",
+                imagem: "https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdhLTg4YjktMTcyMzczNDA5OWJhXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg",
+                perguntas: [
+                    { pergunta: "Qual o sonho principal de Naruto Uzumaki?", opcoes: ["Ser Hokage", "Ser Caçador", "Ser o Rei dos Piratas", "Aprender Bankai"], correta: 0 },
+                    { pergunta: "Quem ensinou o Rasengan para o Naruto?", opcoes: ["Kakashi", "Jiraiya", "Iruka", "Tsunade"], correta: 1 }
+                ]
             },
             {
-                pergunta: "Em 'Demon Slayer', qual o nome do protagonista?",
-                opcoes: ["Zenitsu", "Tanjiro Kamado", "Inosuke", "Giyu Tomioka"],
-                correta: 1
+                id: "demonslayer",
+                titulo: "Demon Slayer",
+                imagem: "https://m.media-amazon.com/images/M/MV5BZjZjNzI5MDctY2Y4YS00NmM4LTljMTItZWYxNjQxN2Y4MDlkXkEyXkFqcGdeQXVyNjc3OTE4NDM@._V1_.jpg",
+                perguntas: [
+                    { pergunta: "Qual é o nome da irmã do Tanjiro?", opcoes: ["Kanao", "Nezuko", "Shinobu", "Mitsuri"], correta: 1 },
+                    { pergunta: "Qual elemento é a respiração principal de Tanjiro no início?", opcoes: ["Fogo", "Trovão", "Água", "Vento"], correta: 2 }
+                ]
             },
             {
-                pergunta: "Qual o nome da garota telepata em 'Spy x Family'?",
-                opcoes: ["Yor", "Anya", "Fiona", "Becky"],
-                correta: 1
+                id: "spyxfamily",
+                titulo: "Spy x Family",
+                imagem: "https://m.media-amazon.com/images/M/MV5BNDUyY2FhYTEtZDhjOC00ZDlkLWJiYjAtNDc0MDNlZWMzOTc5XkEyXkFqcGdeQXVyMTA1NjQyNjkw._V1_.jpg",
+                perguntas: [
+                    { pergunta: "Qual é o poder secreto da Anya?", opcoes: ["Ler mentes", "Ficar invisível", "Super força", "Prever o futuro"], correta: 0 },
+                    { pergunta: "Qual é o codinome de Loid Forger como espião?", opcoes: ["Twilight", "Thorn Princess", "Bond", "Scruffy"], correta: 0 }
+                ]
             }
         ];
 
-        let indiceAtual = 0;
+        let animeSelecionado = null;
+        let indicePergunta = 0;
         let pontuacao = 0;
 
-        const questionEl = document.getElementById('question-text');
-        const optionsEl = document.getElementById('options-container');
+        const catalogScreen = document.getElementById('catalog-screen');
         const quizScreen = document.getElementById('quiz-screen');
         const resultScreen = document.getElementById('result-screen');
-        const finalScoreEl = document.getElementById('final-score');
+        const animeGrid = document.getElementById('animeGrid');
 
-        function carregarPergunta() {
-            const perguntaAtual = perguntas[indiceAtual];
-            questionEl.innerText = perguntaAtual.pergunta;
-            optionsEl.innerHTML = '';
-
-            // Cria um botão para cada opção de resposta
-            perguntaAtual.opcoes.forEach((opcao, index) => {
-                const btn = document.createElement('button');
-                btn.innerText = opcao;
-                // Adiciona o evento de clique que dispara a verificação
-                btn.onclick = () => verificarResposta(index);
-                optionsEl.appendChild(btn);
+        // Cria os cards interativos
+        function carregarCatalogo() {
+            animeGrid.innerHTML = '';
+            dadosAnimes.forEach(anime => {
+                const card = document.createElement('div');
+                card.className = 'anime-card';
+                card.onclick = () => iniciarJogo(anime); // Dispara o quiz do anime clicado
+                card.innerHTML = `
+                    <img src="${anime.imagem}" alt="${anime.titulo}">
+                    <h3>${anime.titulo}</h3>
+                    <p style="font-size: 0.85rem; color: #aaa; margin-top: 5px;">Clique para jogar!</p>
+                `;
+                animeGrid.appendChild(card);
             });
         }
 
-        function verificarResposta(opcaoSelecionada) {
-            if (opcaoSelecionada === perguntas[indiceAtual].correta) {
+        // Abre o quiz do anime clicado
+        function iniciarJogo(anime) {
+            animeSelecionado = anime;
+            indicePergunta = 0;
+            pontuacao = 0;
+
+            catalogScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            document.getElementById('anime-title-quiz').innerText = `Quiz: ${anime.titulo}`;
+            mostrarPergunta();
+        }
+
+        function mostrarPergunta() {
+            const perguntaAtual = animeSelecionado.perguntas[indicePergunta];
+            document.getElementById('question-text').innerText = perguntaAtual.pergunta;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            perguntaAtual.opcoes.forEach((opcao, index) => {
+                const btn = document.createElement('button');
+                btn.innerText = opcao;
+                btn.onclick = () => responder(index);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function responder(opcaoIndex) {
+            if (opcaoIndex === animeSelecionado.perguntas[indicePergunta].correta) {
                 pontuacao++;
             }
 
-            indiceAtual++;
+            indicePergunta++;
 
-            // Avança para a próxima pergunta ou mostra a pontuação final
-            if (indiceAtual < perguntas.length) {
-                carregarPergunta();
+            if (indicePergunta < animeSelecionado.perguntas.length) {
+                mostrarPergunta();
             } else {
                 mostrarResultado();
             }
@@ -154,22 +212,24 @@
         function mostrarResultado() {
             quizScreen.classList.add('hidden');
             resultScreen.classList.remove('hidden');
-            finalScoreEl.innerText = `Você acertou ${pontuacao} de ${perguntas.length} perguntas!`;
+            document.getElementById('final-score').innerText = 
+                `Você acertou ${pontuacao} de ${animeSelecionado.perguntas.length} perguntas em ${animeSelecionado.titulo}!`;
         }
 
-        function reiniciarQuiz() {
-            pontuacao = 0;
-            indiceAtual = 0;
+        function voltarAoCatalogo() {
+            quizScreen.classList.add('hidden');
             resultScreen.classList.add('hidden');
-            quizScreen.classList.remove('hidden');
-            carregarPergunta();
+            catalogScreen.classList.remove('hidden');
         }
 
-        // Inicia o jogo
-        carregarPergunta();
+        carregarCatalogo();
     </script>
 </body>
 </html>
+
+```
+
+
 
 ```
 
