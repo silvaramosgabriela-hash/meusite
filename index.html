@@ -228,7 +228,149 @@
 </html>
 
 ```
+Substitua todo o bloco `const dadosAnimes = [...]` do seu arquivo por este código expandido. Agora seu site terá **8 animes populares**, totalizando 80 perguntas (10 para cada anime):
 
+```javascript
+const dadosAnimes = [
+    {
+        id: "naruto",
+        titulo: "Naruto",
+        imagem: "https://m.media-amazon.com/images/M/MV5BZmQ5NGFiNWEtMmMyMC00MDdhLTg4YjktMTcyMzczNDA5OWJhXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg",
+        perguntas: [
+            { pergunta: "1. Qual o sonho principal de Naruto Uzumaki?", opcoes: ["Ser Hokage", "Ser Caçador", "Ser o Rei dos Piratas", "Aprender Bankai"], correta: 0 },
+            { pergunta: "2. Quem ensinou o Rasengan para o Naruto?", opcoes: ["Kakashi", "Jiraiya", "Iruka", "Tsunade"], correta: 1 },
+            { pergunta: "3. Qual é o nome da raposa de nove caudas?", opcoes: ["Kurama", "Gyuki", "Shukaku", "Isobu"], correta: 0 },
+            { pergunta: "4. Qual é o dojutsu exclusivo do clã Uchiha?", opcoes: ["Byakugan", "Sharingan", "Rinnegan", "Tenseigan"], correta: 1 },
+            { pergunta: "5. Quem era o líder oficial da Akatsuki em Amegakure?", opcoes: ["Itachi", "Orochimaru", "Pain", "Sasuke"], correta: 2 },
+            { pergunta: "6. Qual o nome do irmão mais velho de Sasuke?", opcoes: ["Madara", "Itachi", "Obito", "Shisui"], correta: 1 },
+            { pergunta: "7. Quem foi o Sensei responsável pelo Time 7?", opcoes: ["Asuma", "Kakashi", "Gai", "Kurenai"], correta: 1 },
+            { pergunta: "8. Qual elemento de chakra é a afinidade natural de Naruto?", opcoes: ["Vento", "Fogo", "Água", "Raio"], correta: 0 },
+            { pergunta: "9. Qual o nome da vila onde Naruto nasceu?", opcoes: ["Vila da Névoa", "Vila da Folha", "Vila da Areia", "Vila da Nuvem"], correta: 1 },
+            { pergunta: "10. Quem se tornou a Quinta Hokage?", opcoes: ["Shizune", "Tsunade", "Kushina", "Mei Terumi"], correta: 1 }
+        ]
+    },
+    {
+        id: "demonslayer",
+        titulo: "Demon Slayer",
+        imagem: "https://m.media-amazon.com/images/M/MV5BZjZjNzI5MDctY2Y4YS00NmM4LTljMTItZWYxNjQxN2Y4MDlkXkEyXkFqcGdeQXVyNjc3OTE4NDM@._V1_.jpg",
+        perguntas: [
+            { pergunta: "1. Qual é o nome da irmã do Tanjiro?", opcoes: ["Kanao", "Nezuko", "Shinobu", "Mitsuri"], correta: 1 },
+            { pergunta: "2. Qual elemento é a respiração principal de Tanjiro no início?", opcoes: ["Fogo", "Trovão", "Água", "Vento"], correta: 2 },
+            { pergunta: "3. Quem é o vilão principal e criador dos demônios?", opcoes: ["Akaza", "Muzan Kibutsuji", "Doma", "Kokushibo"], correta: 1 },
+            { pergunta: "4. Qual animal inspira a máscara usada por Inosuke Hashibira?", opcoes: ["Lobo", "Javali", "Urso", "Tigre"], correta: 1 },
+            { pergunta: "5. O que Nezuko carrega na boca para evitar morder humanos?", opcoes: ["Um lenço", "Um bambu", "Uma fita", "Um amuleto"], correta: 1 },
+            { pergunta: "6. Como são chamados os caçadores de elite do Esquadrão?", opcoes: ["Pilares (Hashiras)", "Mestres", "Guardiões", "Sábios"], correta: 0 },
+            { pergunta: "7. Qual a cor da lâmina Nichirin de Tanjiro?", opcoes: ["Vermelha", "Azul", "Preta", "Amarela"], correta: 2 },
+            { pergunta: "8. Qual estilo de respiração o Zenitsu utiliza?", opcoes: ["Respiração do Trovão", "Respiração da Água", "Respiração das Chamas", "Respiração da Lua"], correta: 0 },
+            { pergunta: "9. Quem é o Hashira das Chamas?", opcoes: ["Giyu Tomioka", "Kyojuro Rengoku", "Tengen Uzui", "Sanemi Shinazugawa"], correta: 1 },
+            { pergunta: "10. Qual é o metal usado para criar as espadas que matam demônios?", opcoes: ["Adamantium", "Minério Nichirin", "Vibranium", "Aço Mitril"], correta: 1 }
+        ]
+    },
+    {
+        id: "onepiece",
+        titulo: "One Piece",
+        imagem: "https://m.media-amazon.com/images/M/MV5BMTNjNGU4NTUtY2VmMy00Mjk4LWJiMDUtZmJiA2NTI3ZmVjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg",
+        perguntas: [
+            { pergunta: "1. Qual é o sonho do protagonista Monkey D. Luffy?", opcoes: ["Ser Hokage", "Ser o Rei dos Piratas", "Encontrar o All Blue", "Derrotar Kaido"], correta: 1 },
+            { pergunta: "2. Qual Fruta do Diabo (Akuma no Mi) Luffy comeu?", opcoes: ["Mera Mera no Mi", "Gomu Gomu no Mi", "Ope Ope no Mi", "Ito Ito no Mi"], correta: 1 },
+            { pergunta: "3. Quem foi o primeiro integrante a entrar para o bando dos Chapéu de Palha?", opcoes: ["Nami", "Usopp", "Roronoa Zoro", "Sanji"], correta: 2 },
+            { pergunta: "4. Qual é a função de Sanji no navio?", opcoes: ["Navegador", "Cozinheiro", "Médico", "Atirador"], correta: 1 },
+            { pergunta: "5. Como se chama o primeiro navio do bando dos Chapéu de Palha?", opcoes: ["Thousand Sunny", "Going Merry", "Red Force", "Oro Jackson"], correta: 1 },
+            { pergunta: "6. Quem deu o chapéu de palha para Luffy?", opcoes: ["Garp", "Shanks", "Ace", "Dragon"], correta: 1 },
+            { pergunta: "7. Qual é a recompensa inicial do Luffy?", opcoes: ["30 milhões de Berries", "100 milhões de Berries", "500 milhões de Berries", "1 bilhão de Berries"], correta: 0 },
+            { pergunta: "8. Qual estilo de luta Zoro utiliza?", opcoes: ["Estilo de Uma Espada", "Estilo de Duas Espadas", "Santoryu (Três Espadas)", "Karate dos Homens-Peixe"], correta: 2 },
+            { pergunta: "9. Qual é a profissão do Tony Tony Chopper no bando?", opcoes: ["Músico", "Carpinteiro", "Médico", "Navegador"], correta: 2 },
+            { pergunta: "10. Qual é o mar de onde Luffy e sua tripulação inicial partiram?", opcoes: ["Grand Line", "East Blue", "West Blue", "North Blue"], correta: 1 }
+        ]
+    },
+    {
+        id: "dragonball",
+        titulo: "Dragon Ball",
+        imagem: "https://m.media-amazon.com/images/M/MV5BM2H3NTM2ZmEtNWY4Yi00OTI1LWI2ZTgtYmE5N2U4YDBkYzA1XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg",
+        perguntas: [
+            { pergunta: "1. Qual é o nome Saiyajin de Goku?", opcoes: ["Kakarotto", "Raditz", "Vegeta", "Broly"], correta: 0 },
+            { pergunta: "2. Quantas Esferas do Dragão são necessárias para invocar o Shenlong?", opcoes: ["5", "6", "7", "8"], correta: 2 },
+            { pergunta: "3. Quem ensinou a técnica do Kamehameha para o Goku?", opcoes: ["Kami-Sama", "Mestre Kame", "Sr. Kaioh", "Whis"], correta: 1 },
+            { pergunta: "4. Qual é a raça original de Vegeta e Goku?", opcoes: ["Namekuseijin", "Saiyajin", "Humana", "Android"], correta: 1 },
+            { pergunta: "5. Quem derrotou Cell na saga dos Androides?", opcoes: ["Goku", "Vegeta", "Gohan", "Trunks"], correta: 2 },
+            { pergunta: "6. Qual o nome do filho mais velho de Goku?", opcoes: ["Goten", "Gohan", "Trunks", "Pan"], correta: 1 },
+            { pergunta: "7. Qual o planeta de origem de Piccolo?", opcoes: ["Planeta Vegeta", "Namekusei", "Terra", "Planeta Kaioh"], correta: 1 },
+            { pergunta: "8. Quem é o Príncipe dos Saiyajins?", opcoes: ["Nappa", "Raditz", "Vegeta", "Broly"], correta: 2 },
+            { pergunta: "9. Qual objeto Goku usava para voar na infância?", opcoes: ["Asas de dragão", "Nuvem Voadora", "Cápsula espacial", "Jatpack"], correta: 1 },
+            { pergunta: "10. Quem se transforma em Super Saiyajin pela primeira vez na luta contra Freeza?", opcoes: ["Vegeta", "Goku", "Gohan", "Future Trunks"], correta: 1 }
+        ]
+    },
+    {
+        id: "attackontitan",
+        titulo: "Attack on Titan",
+        imagem: "https://m.media-amazon.com/images/M/MV5BMTMyMDA0ODA0N15BMl5BanBnXkFtZTgwNzgyMjAzMjE@._V1_.jpg",
+        perguntas: [
+            { pergunta: "1. Qual é o nome do protagonista de Attack on Titan?", opcoes: ["Armin Arlert", "Eren Yeager", "Levi Ackerman", "Erwin Smith"], correta: 1 },
+            { pergunta: "2. Como se chama a muralha mais externa que protegia a humanidade no início?", opcoes: ["Muralha Rose", "Muralha Sina", "Muralha Maria", "Muralha Marley"], correta: 2 },
+            { pergunta: "3. Qual é a principal fraqueza dos Titãs?", opcoes: ["Coração", "Nuca", "Olhos", "Pés"], correta: 1 },
+            { pergunta: "4. Quem é conhecida como a soldada mais forte da humanidade ao lado de Levi?", opcoes: ["Sasha", "Historia", "Mikasa Ackerman", "Annie"], correta: 2 },
+            { pergunta: "5. Qual Titã o Eren possui inicialmente?", opcoes: ["Titã Colossal", "Titã Blindado", "Titã de Ataque", "Titã Bestial"], correta: 2 },
+            { pergunta: "6. Quem era o portador do Titã Colossal no início da história?", opcoes: ["Reiner", "Bertolt", "Zeke", "Porco"], correta: 1 },
+            { pergunta: "7. Qual é o nome da divisão militar encarregada de explorar fora das muralhas?", opcoes: ["Polícia Militar", "Guarnição", "Divisão de Reconhecimento", "Guarda Real"], correta: 2 },
+            { pergunta: "8. Qual comida Sasha Braus amava obsessivamente?", opcoes: ["Pão", "Batata", "Carne de Porco", "Maçã"], correta: 1 },
+            { pergunta: "9. Quem era o Comandante da Divisão de Reconhecimento antes de Hange?", opcoes: ["Erwin Smith", "Levi Ackerman", "Pixis", "Nile Dok"], correta: 0 },
+            { pergunta: "10. Qual equipamento os soldados usam para se mover tridimensionalmente?", opcoes: ["DMD", "DMT (Dispositivo de Manobra Tridimensional)", "Mochila a Jato", "Ganchos Elétricos"], correta: 1 }
+        ]
+    },
+    {
+        id: "jujutsukaisen",
+        titulo: "Jujutsu Kaisen",
+        imagem: "https://m.media-amazon.com/images/M/MV5BNGY4MTg3NjgtMmFkIN00NTg5LWE3ZWUtPzA4ZDA2YWExNWZhXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg",
+        perguntas: [
+            { pergunta: "1. Qual objeto amaldiçoado Yuji Itadori engole no primeiro episódio?", opcoes: ["Dedo de Sukuna", "Olho de Gojo", "Coração de Mahito", "Espada Espiritual"], correta: 0 },
+            { pergunta: "2. Quem é conhecido como o feitiçeiro mais forte de todos?", opcoes: ["Megumi Fushiguro", "Satoru Gojo", "Suguru Geto", "Kento Nanami"], correta: 1 },
+            { pergunta: "3. Qual técnica de expansão de domínio pertence a Satoru Gojo?", opcoes: ["Santuário Malevolente", "Vazio Incomensurável", "Jardim das Sombras", "Auto-Encarnação da Perfeição"], correta: 1 },
+            { pergunta: "4. Quantos dedos no total a maldição Ryomen Sukuna possui?", opcoes: ["10", "12", "15", "20"], correta: 3 },
+            { pergunta: "5. Qual colega de classe usa Shikigamis de sombras?", opcoes: ["Yuji Itadori", "Megumi Fushiguro", "Toge Inumaki", "Panda"], correta: 1 },
+            { pergunta: "6. Qual alimento Toge Inumaki usa para falar e não ativar sua fala amaldiçoada?", opcoes: ["Ingredientes de Onigiri", "Doces", "Frutas", "Ramen"], correta: 0 },
+            { pergunta: "7. Quem é o mentor que usa óculos e prefere trabalhar dentro do horário comercial?", opcoes: ["Kento Nanami", "Aoi Todo", "Panda", "Suguru Geto"], correta: 0 },
+            { pergunta: "8. Qual estudante de Kyoto considera Yuji seu 'melhor amigo'?", opcoes: ["Mai Zenin", "Aoi Todo", "Noritoshi Kamo", "Muta Kokichi"], correta: 1 },
+            { pergunta: "9. Qual é a arma principal de Nobara Kugisaki?", opcoes: ["Katana", "Martelo e pregos", "Arco e flecha", "Nunchaku"], correta: 1 },
+            { pergunta: "10. Qual a escola de feitiçaria que os protagonistas frequentam?", opcoes: ["Escola Técnica de Jujutsu de Tóquio", "Academia UA", "Escola Eden", "Colégio Kamome"], correta: 0 }
+        ]
+    },
+    {
+        id: "deathnote",
+        titulo: "Death Note",
+        imagem: "https://m.media-amazon.com/images/M/MV5BNjRiNmNjMmMtN2U2Yi00ODMwLTg0NGUtMWJiM2M2NzgxMTI1XkEyXkFqcGdeQXVyMTA1NjQyNjkw._V1_.jpg",
+        perguntas: [
+            { pergunta: "1. Qual o nome do estudante que encontra o Death Note?", opcoes: ["L Lawliet", "Light Yagami", "Nate River", "Mello"], correta: 1 },
+            { pergunta: "2. Qual o nome do Shinigami dono original do caderno de Light?", opcoes: ["Rem", "Ryuk", "Sidoh", "Gelus"], correta: 1 },
+            { pergunta: "3. Qual é a comida favorita de Ryuk?", opcoes: ["Banana", "Maçã", "Chocolate", "Lamen"], correta: 1 },
+            { pergunta: "4. Qual codinome Light usa quando atua como o assassino do caderno?", opcoes: ["L", "Kira", "Zero", "Joker"], correta: 1 },
+            { pergunta: "5. Qual é a regra básica principal para matar alguém com o Death Note?", opcoes: ["Saber apenas a voz", "Saber o nome verdadeiro e o rosto da pessoa", "Saber a data de nascimento", "Estar perto da pessoa"], correta: 1 },
+            { pergunta: "6. Qual alimento o detetive 'L' está constantemente comendo?", opcoes: ["Maçãs", "Doces e bolos com muito açúcar", "Salgadinhos", "Frutas secas"], correta: 1 },
+            { pergunta: "7. Quem é a pessoa que surge como o 'Segundo Kira'?", opcoes: ["Misa Amane", "Kiyomi Takada", "Teru Mikami", "Soichiro Yagami"], correta: 0 },
+            { pergunta: "8. O que uma pessoa precisa trocar para obter os 'Olhos de Shinigami'?", opcoes: ["Sua memória", "Metade do seu tempo de vida restante", "Sua alma", "A capacidade de falar"], correta: 1 },
+            { pergunta: "9. Quais são os dois sucessores de L?", opcoes: ["Near e Mello", "Light e Misa", "Matsuda e Aizawa", "Ryuk e Rem"], correta: 0 },
+            { pergunta: "10. Qual o nome do pai de Light, que é um chefe de polícia?", opcoes: ["Soichiro Yagami", "Matsuda Yagami", "Aizawa Yagami", "Ukita Yagami"], correta: 0 }
+        ]
+    },
+    {
+        id: "spyxfamily",
+        titulo: "Spy x Family",
+        imagem: "https://m.media-amazon.com/images/M/MV5BNDUyY2FhYTEtZDhjOC00ZDlkLWJiYjAtNDc0MDNlZWMzOTc5XkEyXkFqcGdeQXVyMTA1NjQyNjkw._V1_.jpg",
+        perguntas: [
+            { pergunta: "1. Qual é o poder secreto da Anya?", opcoes: ["Ler mentes", "Ficar invisível", "Super força", "Prever o futuro"], correta: 0 },
+            { pergunta: "2. Qual é o codinome de Loid Forger como espião?", opcoes: ["Twilight", "Thorn Princess", "Bond", "Scruffy"], correta: 0 },
+            { pergunta: "3. Qual é a profissão secreta de Yor Forger?", opcoes: ["Policial", "Assassina de aluguel", "Espiã", "Médica"], correta: 1 },
+            { pergunta: "4. Qual o nome do cachorro da família Forger?", opcoes: ["Franky", "Bond", "Max", "Anya Jr."], correta: 1 },
+            { pergunta: "5. Qual a comida favorita da Anya?", opcoes: ["Lamen", "Amendoim", "Hambúrguer", "Chocolate"], correta: 1 },
+            { pergunta: "6. Qual o nome do colégio de elite onde Anya estuda?", opcoes: ["Colégio Eden", "Academia UA", "Escola Otonokizaka", "Colégio Karasuno"], correta: 0 },
+            { pergunta: "7. Como são chamadas as insígnias de honra concedidas aos alunos no Colégio Eden?", opcoes: ["Stella Stars", "Tonitrus Stars", "Eden Badges", "Gold Medals"], correta: 0 },
+            { pergunta: "8. Qual é a grande fraqueza de Yor em casa?", opcoes: ["Ela cozinha muito mal", "Ela recusa-se a limpar", "Ela dorme o dia todo", "Ela perde o controle da força na costura"], correta: 0 },
+            { pergunta: "9. Qual o nome da operação secreta comandada por Twilight?", opcoes: ["Operação Strix", "Operação Coruja", "Operação Sombra", "Operação Família"], correta: 0 },
+            { pergunta: "10. Quem é o informante e melhor amigo de Loid?", opcoes: ["Yuri Briar", "Franky Franklin", "Damian Desmond", "Henry Henderson"], correta: 1 }
+        ]
+    }
+];
+
+```
 
 
 ```
