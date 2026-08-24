@@ -220,3 +220,172 @@
 
 ```
 
+
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Animes</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --primary: #ff3366;
+            --text: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .quiz-container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            border: 2px solid var(--primary);
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        button {
+            background-color: #2a2a2a;
+            color: white;
+            border: 1px solid #444;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .score-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <!-- Tela da Pergunta -->
+        <div id="quiz-screen">
+            <h2 id="question-text">Carregando pergunta...</h2>
+            <div id="options-container" class="options-grid"></div>
+        </div>
+
+        <!-- Tela do Resultado final -->
+        <div id="result-screen" class="hidden">
+            <h2>Fim do Quiz!</h2>
+            <p class="score-text" id="final-score"></p>
+            <button onclick="reiniciarQuiz()" style="margin-top: 15px;">Jogar Novamente</button>
+        </div>
+    </div>
+
+    <script>
+        // Array com as perguntas, opções e o índice da resposta correta
+        const perguntas = [
+            {
+                pergunta: "Qual é o objetivo principal de Naruto Uzumaki?",
+                opcoes: ["Se tornar Hokage", "Encontrar o One Piece", "Derrotar os Titãs", "Ser o Rei dos Magos"],
+                correta: 0
+            },
+            {
+                pergunta: "Em 'Demon Slayer', qual o nome do protagonista?",
+                opcoes: ["Zenitsu", "Tanjiro Kamado", "Inosuke", "Giyu Tomioka"],
+                correta: 1
+            },
+            {
+                pergunta: "Qual o nome da garota telepata em 'Spy x Family'?",
+                opcoes: ["Yor", "Anya", "Fiona", "Becky"],
+                correta: 1
+            }
+        ];
+
+        let indiceAtual = 0;
+        let pontuacao = 0;
+
+        const questionEl = document.getElementById('question-text');
+        const optionsEl = document.getElementById('options-container');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const finalScoreEl = document.getElementById('final-score');
+
+        function carregarPergunta() {
+            const perguntaAtual = perguntas[indiceAtual];
+            questionEl.innerText = perguntaAtual.pergunta;
+            optionsEl.innerHTML = '';
+
+            // Cria um botão para cada opção de resposta
+            perguntaAtual.opcoes.forEach((opcao, index) => {
+                const btn = document.createElement('button');
+                btn.innerText = opcao;
+                // Adiciona o evento de clique que dispara a verificação
+                btn.onclick = () => verificarResposta(index);
+                optionsEl.appendChild(btn);
+            });
+        }
+
+        function verificarResposta(opcaoSelecionada) {
+            if (opcaoSelecionada === perguntas[indiceAtual].correta) {
+                pontuacao++;
+            }
+
+            indiceAtual++;
+
+            // Avança para a próxima pergunta ou mostra a pontuação final
+            if (indiceAtual < perguntas.length) {
+                carregarPergunta();
+            } else {
+                mostrarResultado();
+            }
+        }
+
+        function mostrarResultado() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScoreEl.innerText = `Você acertou ${pontuacao} de ${perguntas.length} perguntas!`;
+        }
+
+        function reiniciarQuiz() {
+            pontuacao = 0;
+            indiceAtual = 0;
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            carregarPergunta();
+        }
+
+        // Inicia o jogo
+        carregarPergunta();
+    </script>
+</body>
+</html>
+
+```
+
